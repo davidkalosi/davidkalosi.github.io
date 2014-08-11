@@ -6,7 +6,8 @@ share:            true
 # Change url to your domain. Leave localhost server or blank when working locally.
 # or use the hint from http://jekyllrb.com/docs/github-pages/ to keep this the same 
 # whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
-url:        	    http://www.davidkalosi.com
+#url:        	    http://www.davidkalosi.com
+url:        	    http://localhost:4000
 
 # Owner/author information
 owner:
@@ -14,7 +15,7 @@ owner:
   avatar:         davidkalosi.jpg
   email:          david.kalosi@gmail.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    Software artist
+  description:    A man of many faces
   # Social networking links used in footer. Update and remove as you like.
   twitter:        DKalosi
   facebook:       david.kalosi
