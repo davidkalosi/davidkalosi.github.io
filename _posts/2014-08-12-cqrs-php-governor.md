@@ -31,3 +31,9 @@ Hence the [Governor Framework](https://github.com/davidkalosi/GovernorFramework)
 
 So in essence one can write an event sourced application inside Symfony 2 with all the bells and whistles that such an app requires. 
 
+With the basic building blocks already in place it is now the right time to evolve the library even further - since it was taken from the Java world certain parts doesn't make that much sense in PHP the way they are implemented at the moment - for example repository locking and saga management being the hottest issues. After hours and hours of research, reading and googling the plans for further development and improvement slowly started to emerge from the dark: 
+
+[React PHP](http://reactphp.org/) 
+
+Once I came to know Node.JS better I instantly become a big fan and endorser of this technology becase the power and potential it packs is simply amazing. 
+
