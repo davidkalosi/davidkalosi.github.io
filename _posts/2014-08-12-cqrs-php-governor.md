@@ -37,3 +37,8 @@ With the basic building blocks already in place it is now the right time to evol
 
 Once I came to know Node.JS better I instantly become a big fan and endorser of this technology becase the power and potential it packs is simply amazing. 
 
+What I am planning is to move the command processing code into React PHP. Once the command is dispatched into the command bus a React server will take over and act as a worker that will process the request while allowing the client to either wait for it's execution or simply do a fire and forget. 
+
+Making all this work will require new implementations for the command and event buses as well for the event listeners and saga managers but I belive it will improve the framework by miles. 
+
+So stay tuned :)
