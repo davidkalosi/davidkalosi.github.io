@@ -193,7 +193,7 @@ html, body, .summer-post-container, .summer-post-header {
       @media only screen and (min-width: 70em) {
         .post-template .summer-post-content > div:not(.summer-post-title) {
           margin: -10% auto 0; } }
-      .post-template .summer-post-content > div:not(.summer-post-title) a, .post-template .summer-post-content > div:not(.summer-post-title) code {
+      .post-template .summer-post-content > div:not(.summer-post-title) a, .post-template .summer-post-content > div:not(.summer-post-title) code:not {
         color: #e51843; }
       .post-template .summer-post-content > div:not(.summer-post-title) ul, .post-template .summer-post-content > div:not(.summer-post-title) ol {
         padding-left: 1.25rem;
@@ -461,7 +461,7 @@ html, body, .summer-post-container, .summer-post-header {
     margin: 0 auto;
     padding-left: 1.875rem;
     padding-right: 1.875rem; }
-    .summer-page-content > div:not(.summer-page-title) a, .summer-page-content > div:not(.summer-page-title) code {
+    .summer-page-content > div:not(.summer-page-title) a, .summer-page-content > div:not(.summer-page-title) code:not {
       color: #e51843; }
     .summer-page-content > div:not(.summer-page-title) ul, .summer-page-content > div:not(.summer-page-title) ol {
       padding-left: 1.25rem;
@@ -532,7 +532,9 @@ html, body, .summer-post-container, .summer-post-header {
 
 pre {
   word-wrap: break-word;
-  margin-bottom: 1.5625rem; }
+  margin-bottom: 1.5625rem; 
+  padding: 10px;
+}
 
 code {
   font-size: 0.9375rem;
