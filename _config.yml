@@ -47,8 +47,8 @@ links:
 timezone:    Europe/Bratislava
 future:      true
 highlighter: pygments
-#markdown:    kramdown
-markdown:  redcarpet
+markdown:    kramdown
+#markdown:  redcarpet
 paginate:    5
 paginate_path: "page:num"
 
@@ -61,6 +61,7 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..6
   use_coderay: false
+  input: GFM
 
   coderay:
     coderay_line_numbers: 
