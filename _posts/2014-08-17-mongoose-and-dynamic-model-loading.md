@@ -18,7 +18,7 @@ The basic idea is to have one model per file in a separate directory (called mod
 To achieve this first we need to establish a structure when defining a model:
 
 models/User.js
-``` javascript
+{% highlight javascript %}
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -31,10 +31,10 @@ var userSchema = new Schema({
 var User = mongoose.model('User', userSchema);
 
 exports.User = User;
-```
+{% endhighlight %}
 
 And the models/index.js that takes care of the loading looks like this:
-``` javascript
+{% highlight javascript %}
 var mongoose = require('mongoose');
 var fs = require('fs');
 var path = require('path');
@@ -53,13 +53,12 @@ fs.readdirSync(__dirname)
     });
 
 module.exports = model;
-```
+{% endhighlight %}
 
 Then in the application you simply do 
-``` javascript
+{% highlight javascript %}
 var model = require('./models');
 
 model.User.findOne({login: 'davidkalosi'}, function (err, user) {
 });
-
-```
+{% endhighlight %}
