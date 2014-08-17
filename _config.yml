@@ -47,7 +47,8 @@ links:
 timezone:    Europe/Bratislava
 future:      true
 highlighter: pygments
-markdown:    kramdown
+#markdown:    kramdown
+markdown:  redcarpet
 paginate:    5
 paginate_path: "page:num"
 
