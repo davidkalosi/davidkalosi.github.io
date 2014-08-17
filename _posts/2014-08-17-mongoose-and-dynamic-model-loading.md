@@ -1,13 +1,15 @@
 ---
 layout: post
-published: false
+published: true
 title: Mongoose and dynamic model loading
 mathjax: false
 featured: false
 comments: true
 modified: "2014-08-17"
+categories: 
+  - Node.JS
+tags: "node,javascript,mongoose"
 ---
-
 
 Here is another simple approach for maintaining a model per file structure with mongoose.
 
@@ -61,5 +63,3 @@ model.User.findOne({login: 'davidkalosi'}, function (err, user) {
 });
 
 ```
-
-
