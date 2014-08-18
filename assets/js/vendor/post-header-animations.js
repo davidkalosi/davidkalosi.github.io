@@ -142,6 +142,7 @@
         }
 
         window.addEventListener( 'scroll', scrollPage );
+        window.addEventListener( 'touchstart', function () { toggle('reveal'); } );
 
         trigger.addEventListener( 'click', function() { toggle( 'reveal' ); } );
     

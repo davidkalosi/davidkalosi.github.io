@@ -11,7 +11,7 @@ mathjax: false
 chart: null
 comments: true
 featured: false
-published: false
+published: true
 ---
 
 Topics like Command Query Responsibility Segregation and Event Sourcing have been around for quite a time, and have spawned a number of fremworks and libraries mostly in the C# and Java communities. So what about PHP?
