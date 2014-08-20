@@ -112,18 +112,12 @@ prose:
           placeholder: "Choose categories"
           value: personal
           options:
-            - name: "Personal"
-              value: personal
-            - name: "Engineering"
-              value: engineering
-            - name: "Physics"
-              value: physics
-            - name: "Psychology"
-              value: psychology
-            - name: "Interesting"
-              value: interesting
-            - name: "Web-Development"
-              value: webdevelopment
+            - name: "Node.JS"
+              value: Node.JS
+            - name: "CQRS"
+              value: CQRS
+            - name: "PHP"
+              value: PHP
           alterable: true
       - name: "tags"
         field:
