@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "CQRS, PHP and the Governor Framework"
-description: desc
-headline: headlle
+description: ""
+headline: ""
 modified: "Wed Jul 23 2014 02:00:00 GMT+0200 (Central Europe Daylight Time)"
 category: cqrs
 tags: "php,cqrs,event sourcing"
@@ -10,8 +10,10 @@ imagefeature: cover1.jpg
 mathjax: false
 chart: null
 comments: true
-featured: false
-published: false
+featured: true
+published: true
+categories: 
+  - CQRS
 ---
 
 Topics like Command Query Responsibility Segregation and Event Sourcing have been around for quite a time, and have spawned a number of fremworks and libraries mostly in the C# and Java communities. So what about PHP?
@@ -31,14 +33,23 @@ Hence the [Governor Framework](https://github.com/davidkalosi/GovernorFramework)
 
 So in essence one can write an event sourced application inside Symfony 2 with all the bells and whistles that such an app requires. 
 
-With the basic building blocks already in place it is now the right time to evolve the library even further - since it was taken from the Java world certain parts doesn't make that much sense in PHP the way they are implemented at the moment - for example repository locking and saga management being the hottest issues. After hours and hours of research, reading and googling the plans for further development and improvement slowly started to emerge from the dark: 
+With the basic building blocks already in place it is now the right time to evolve the library even further - since it was taken from the Java world certain parts doesn't make that much sense in PHP the way they are implemented at the moment - for example repository locking and saga management being the hottest issues. 
 
-[React PHP](http://reactphp.org/) 
+The command dispatching process also needs to be refactored in order to provide async command dispatching abilities. 
 
-Once I came to know Node.JS better I instantly become a big fan and endorser of this technology becase the power and potential it packs is simply amazing. 
+All of this can be summed up in the following roadmap:
 
-What I am planning is to move the command processing code into React PHP. Once the command is dispatched into the command bus a React server will take over and act as a worker that will process the request while allowing the client to either wait for it's execution or simply do a fire and forget. 
+- Command handling logic will be moved into a pool of background worker processes with support for both synchronous and asynchronous processing. One command per process.
+- Because of this the repository locking has to be implemented so it can cope with multiple processes.
 
-Making all this work will require new implementations for the command and event buses as well for the event listeners and saga managers but I belive it will improve the framework by miles. 
+I have spent many hours of research and googling while trying to find the best way to accomplish theese tasks. I have [considered](http://zeromq.org/) a [number](http://reactphp.org/) of [options](https://www.rabbitmq.com/) what library or technology to use since all of them have it's strengths and weaknesses. 
 
-So stay tuned :)
+In the end I have settled for [Redis] (http://redis.io/). With Redis we can implement all the components with a single piece of technology like 
+
+- Command buses (lists - PUSH/POP)
+- Event buses (Pub/Sub)
+- Repository lock maps (hashes maintaining aggregate versions)
+
+I won't commit to any deadlines at this point since there is a ton of POC work ahead to show that we are heading into the right direction - I will report on progress on this blog periodically as the new features will be ready.
+
+Wish me luck ;)
