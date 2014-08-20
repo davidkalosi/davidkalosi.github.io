@@ -23,7 +23,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-	login: String,
+    login: String,
     password: String,
     name: String,
 });
@@ -62,3 +62,5 @@ var model = require('./models');
 model.User.findOne({login: 'davidkalosi'}, function (err, user) {
 });
 {% endhighlight %}
+
+That's it ;)
