@@ -3,7 +3,7 @@ layout: post
 title: "CQRS, PHP and the Governor Framework"
 description: ""
 headline: ""
-modified: "Wed Jul 23 2014 02:00:00 GMT+0200 (Central Europe Daylight Time)"
+modified: "2014-08-20"
 category: cqrs
 tags: "php,cqrs,event sourcing"
 imagefeature: cover1.jpg
