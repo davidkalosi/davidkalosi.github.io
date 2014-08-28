@@ -18,6 +18,12 @@ There are of course another possibilites - using a dedicated repository and nati
 We will assume a simple invocing application as the basis of our example and our simplified domain model looks the following
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity(repositoryClass="InvoiceRepository")
  */
@@ -41,6 +47,12 @@ class Invoice
 and the repository which among others defines a method for finding all my overdue invoices. For now we will stick with a doctrine entity repository.
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Entity;
+
+use Doctrine\ORM\EntityRepository;
+
 class InvoiceRepository extends EntityRepository
 {
 
@@ -58,6 +70,10 @@ This repository method can be used in multiple places
 - an email notification service that sends out notification emails 
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Notification;
+
 class OverdueInvoiceNotificationService
 {
 	private $repository;
@@ -78,6 +94,10 @@ class OverdueInvoiceNotificationService
 Since sending domain objects directly to the GUI is not a good idea we have an application facade that returns DTOs created from the domain object. This coud like like 
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Facade;
+
 class InvoiceFacade 
 {
 	private $repository;
@@ -102,6 +122,10 @@ So far so good but since now we are thrashing out a gazillion invoices for each 
 Time to refactor certain parts
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Facade;
+
 class InvoiceFacade 
 {
 	private $repository;
@@ -126,18 +150,31 @@ class InvoiceFacade
 }
 {% endhighlight %}
 
+
+
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Controller;
+
 class InvoiceController
 {
 	/**
 	 * @Rest\QueryParam(name="page", requirements="\d+", default="1")
  	 * @Rest\QueryParam(name="rows", requirements="\d+", default="25")
+     * @Rest\View()
      */
      
 	public function getOverdueInvoicesAction(ParamFetcher $paramFetcher)
 	{
-    	return $this->getFacade()->getOverdueInvoices($paramFetcher->get('page'),
+    	$invoices = $this->getFacade()->getOverdueInvoices($paramFetcher->get('page'),
 			$paramFetcher->get('rows'));
+            
+        $factory = new PagerfantaFactory("page", "rows");
+        $inline = new CollectionRepresentation(invoices, 'invoices');
+
+        return $factory->createRepresentation($invoices,
+                new Route('invoices_get_invoices', array(), true), $inline);
 	}
 }
 {% endhighlight %}
@@ -150,18 +187,29 @@ An intermediate solution that could actually work would be modifying the reposit
 That would give us
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Entity;
+
+use Doctrine\ORM\EntityRepository;
+
 class InvoiceRepository extends EntityRepository
 {
 
   public function findOverdueInvoices()
   {
-	return $this->createQueryBuilder("i");
+	return $this->createQueryBuilder("i")
+   		->where("i.dueDate >= CURRENT_TIMESTAMP()");
   }
 
 }
 {% endhighlight %}
 
 With a minor change the notification service is running as expected.
+
+{% highlight php %}
+<?php
+namespace Some\Bundle\Notification;
 
 class OverdueInvoiceNotificationService
 {
@@ -172,7 +220,7 @@ class OverdueInvoiceNotificationService
 		$invoices = $this->repository->findOverdueInvoices()->getResult();
 		
 		foreach ($invoices as $invoice) {
-			$this->notify($invoice);
+			// send out email notifications
 		}
 	}
 }
@@ -181,6 +229,10 @@ class OverdueInvoiceNotificationService
 But things do not work very well on the other side. While this code may look OK at the first - we are losing pagination information by returning just the array of DTOs. Returning the Pagerfanta directly will serialize the domain objects and not the DTOs. 
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Facade;
+
 class InvoiceFacade 
 {
 	private $repository;
@@ -213,6 +265,12 @@ Fortunatelly there is an elegant solution for this - we will create a new implem
 The implementation
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Pagerfanta\Adapter;
+
+use Pagerfanta\Adapter\AdapterInterface;
+
 class DelegatingCallbackAdapter implements AdapterInterface
 {
 
@@ -249,6 +307,14 @@ class DelegatingCallbackAdapter implements AdapterInterface
 Now we can rewrite our facade service in the following manner:
 
 {% highlight php %}
+<?php
+
+namespace Some\Bundle\Facade;
+
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Some\Bundle\Pagerfanta\Adapter\DelegatingCallbackAdapter;
+
 class InvoiceFacade 
 {
 	private $repository;
