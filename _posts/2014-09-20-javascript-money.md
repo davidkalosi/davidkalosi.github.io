@@ -24,6 +24,16 @@ It does everything what it is supposed to do
 - Currency support
 - Funds allocation
 
+Like all the other ones it is super easy to use. Simply install with npm and then
+
+{% highlight javascript %}
+var Money = require('js-money');
+
+var fiveEur = new Money(500, Money.EUR);
+var tenEur = fiveEur.multiply(2);
+
+{% endhighlight %}
+
 For detailed docs just head over to [Github](https://github.com/davidkalosi/js-money)
 
 So from know on no lost cent in Javascript as well :)
