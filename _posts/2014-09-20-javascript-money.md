@@ -36,4 +36,4 @@ var tenEur = fiveEur.multiply(2);
 
 For detailed docs just head over to [Github](https://github.com/davidkalosi/js-money)
 
-So from know on no lost cent in Javascript as well :)
+So from know on no lost cents in Javascript as well :)
