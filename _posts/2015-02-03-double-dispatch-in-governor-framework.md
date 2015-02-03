@@ -16,7 +16,7 @@ If not this [article](http://lostechies.com/jimmybogard/2010/03/30/strengthening
 
 What I want to focus on today is how to utilise this pattern in Governor Framework on this simple example.
 
-{% highlight php %}
+{% highlight php startinline=true %}
 class DiscountPolicy
 {
    public function calculate(Cart $cart) 
@@ -50,7 +50,7 @@ Read [here](http://lostechies.com/jimmybogard/2010/04/14/injecting-services-into
 Instead of introducing a class level dependency that is required only in specific scenario we will inject the service as an argument.
 Governor provides a ParameterResolver mechanism that can resolve method parameters and one of the implementations will inject a service from the Symfony DIC.
 
-{% highlight php %}
+{% highlight php startinline=true %}
 
 class Cart extends AnnotatedAggregateRoot
 {
