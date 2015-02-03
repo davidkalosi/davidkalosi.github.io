@@ -68,7 +68,7 @@ class Cart extends AnnotatedAggregateRoot
   {
         $discount = $policy->calculate($this);
         
-        $this->apply(new CartDiscountAppliedEvent($command->getIdentifier(), discount);
+        $this->apply(new CartDiscountAppliedEvent($command->getIdentifier(), $discount);
   }
 }
 {% endhighlight %}
