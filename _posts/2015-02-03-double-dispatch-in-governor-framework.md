@@ -5,6 +5,7 @@ title: Double dispatch in Governor Framework
 mathjax: false
 featured: true
 comments: true
+tags: "ddd,php,governor framework,double dispatch"
 categories: 
   - CQRS
   - PHP
